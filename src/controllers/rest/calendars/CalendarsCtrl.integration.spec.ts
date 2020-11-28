@@ -1,6 +1,6 @@
 import {PlatformTest} from "@tsed/common";
 import * as faker from "faker";
-import * as SuperTest from "supertest";
+import SuperTest from "supertest";
 import {Server} from "../../../../src/Server";
 import {getCalendarCreationFixture} from "../../../models/CalendarFixture";
 import {CalendarsService} from "../../../services/calendars/CalendarsService";

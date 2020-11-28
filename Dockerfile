@@ -22,7 +22,7 @@ COPY yarn.lock .
 COPY ./src ./src
 COPY ./dist ./dist
 COPY ./resources ./resources
-COPY ./spec ./spec
+COPY src/spec ./spec
 
 RUN yarn install --production
 

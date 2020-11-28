@@ -1,17 +1,12 @@
-import {Property, Required} from "@tsed/common";
+import {Description, Required} from "@tsed/schema";
 
-export class CreateCalendar {
+export class CalendarCreation {
+  @Description("Calendar name")
   @Required()
   name: string;
 }
 
-export class Calendar extends CreateCalendar {
-  @Property()
-  id: string;
-
-  @Required()
-  name: string;
-
-  @Property()
-  owner: string;
+export class Calendar extends CalendarCreation {
+  @Description("Database assigned id")
+  _id: string;
 }

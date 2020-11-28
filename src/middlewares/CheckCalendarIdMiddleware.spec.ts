@@ -1,56 +1,59 @@
 import {PlatformTest} from "@tsed/common";
-import * as Sinon from "sinon";
-import {expect} from "chai";
 import {NotFound} from "@tsed/exceptions";
+import * as faker from "faker";
+import {getCalendarFixture} from "../models/CalendarFixture";
 import {CalendarsService} from "../services/calendars/CalendarsService";
 import {CheckCalendarIdMiddleware} from "./CheckCalendarIdMiddleware";
 
 describe("CheckCalendarIdMiddleware", () => {
-  describe("when calendar isn\'t found", () => {
-    before(() => PlatformTest.create());
-    after(() => PlatformTest.reset());
+  beforeEach(() => PlatformTest.create());
+  afterEach(() => PlatformTest.reset());
 
+  describe("when calendar isn't found", () => {
     it("should do nothing when calendar is found", async () => {
       // GIVEN
-      const calendarsService = {
-        find: Sinon.stub().resolves({})
+      const calendar = getCalendarFixture();
+      const calendarsService: Partial<CalendarsService> = {
+        findById: jest.fn().mockResolvedValue(calendar)
       };
 
-      const middleware: CheckCalendarIdMiddleware = await PlatformTest.invoke(CheckCalendarIdMiddleware, [{
-        token: CalendarsService,
-        use: calendarsService
-      }]);
+      const middleware: CheckCalendarIdMiddleware = await PlatformTest.invoke(CheckCalendarIdMiddleware, [
+        {
+          token: CalendarsService,
+          use: calendarsService
+        }
+      ]);
 
       // WHEN
-      const result = await middleware.use("1");
+      const result = await middleware.use(calendar._id);
+
       // THEN
-      // @ts-ignore
-      calendarsService.find.should.be.calledWithExactly("1");
-      expect(result).to.eq(undefined);
+      expect(calendarsService.findById).toHaveBeenCalledWith(calendar._id);
+      expect(result).toEqual(undefined);
     });
     it("should throw an error", async () => {
       // GIVEN
-      const calendarsService = {
-        find: Sinon.stub().resolves()
+      const calendarsService: Partial<CalendarsService> = {
+        findById: jest.fn()
       };
 
-      const middleware: CheckCalendarIdMiddleware = await PlatformTest.invoke(CheckCalendarIdMiddleware, [{
-        token: CalendarsService,
-        use: calendarsService
-      }]);
+      const middleware: CheckCalendarIdMiddleware = await PlatformTest.invoke(CheckCalendarIdMiddleware, [
+        {
+          token: CalendarsService,
+          use: calendarsService
+        }
+      ]);
 
       // WHEN
       let actualError;
       try {
-        await middleware.use("1");
+        await middleware.use(faker.random.uuid());
       } catch (er) {
         actualError = er;
       }
       // THEN
-      // @ts-ignore
-      calendarsService.find.should.be.calledWithExactly("1");
-      actualError.should.instanceOf(NotFound);
-      actualError.message.should.eq("Calendar not found");
+      expect(actualError).toBeInstanceOf(NotFound);
+      expect(actualError.message).toEqual("Calendar not found");
     });
   });
 });

@@ -8,9 +8,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: tsed/server:latest
-    # The app will restart until Mongo is listening
-    restart: always
+    image: tsed-example-basic/server:latest
     ports:
       - "8081:8081"
     stdin_open: true  # -i

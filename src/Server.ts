@@ -1,34 +1,26 @@
-import {Configuration, Inject, PlatformApplication} from "@tsed/common";
-import "@tsed/platform-express";
+import "@tsed/ajv";
+import {PlatformApplication} from "@tsed/common";
+import {Configuration, Inject} from "@tsed/di";
+import "@tsed/platform-express"; // /!\ keep this import
 import "@tsed/swagger";
 import * as bodyParser from "body-parser";
 import * as compress from "compression";
 import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
 import * as methodOverride from "method-override";
+import {IndexCtrl} from "./controllers/pages/IndexCtrl";
 
-const rootDir = __dirname;
+export const rootDir = __dirname;
 
 @Configuration({
   rootDir,
   acceptMimes: ["application/json"],
   httpPort: process.env.PORT || 8083,
   httpsPort: false, // CHANGE
-  logger: {
-    debug: true,
-    logRequest: true,
-    requestFields: ["reqId", "method", "url", "headers", "query", "params", "duration"]
-  },
   mount: {
-    "/rest": [
-      `${rootDir}/controllers/**/*.ts` // Automatic Import, /!\ doesn't works with webpack/jest, use  require.context() or manual import instead
-    ]
+    "/rest": [`${rootDir}/controllers/**/*.ts`],
+    "/": [IndexCtrl]
   },
-  componentsScan: [
-    "${rootDir}/mvc/**/*.ts",
-    "${rootDir}/services/**/*.ts",
-    "${rootDir}/middlewares/**/*.ts"
-  ],
   swagger: [
     {
       path: "/v2/docs",
@@ -43,29 +35,26 @@ const rootDir = __dirname;
     root: `${rootDir}/../views`,
     viewEngine: "ejs"
   },
-  calendar: {
-    token: true
-  }
+  exclude: ["**/*.spec.ts"]
 })
 export class Server {
   @Inject()
   app: PlatformApplication;
 
-  /**
-   * This method let you configure the middleware required by your application to works.
-   * @returns {Server}
-   */
-  $beforeRoutesInit(): void | Promise<any> {
+  @Configuration()
+  settings: Configuration;
+
+  $beforeRoutesInit(): void {
     this.app
       .use(cors())
       .use(cookieParser())
       .use(compress({}))
       .use(methodOverride())
       .use(bodyParser.json())
-      .use(bodyParser.urlencoded({
-        extended: true
-      }));
-
-    return null;
+      .use(
+        bodyParser.urlencoded({
+          extended: true
+        })
+      );
   }
 }

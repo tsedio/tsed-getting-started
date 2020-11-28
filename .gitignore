@@ -41,10 +41,6 @@ test/**/*.js
 test/**/*.js.map
 
 # Test
-/coverage
-/stdout
-/stderr
-/dts
 /.tmp
 /.nyc_output
 

@@ -536,10 +536,10 @@
   dependencies:
     tslib "2.0.1"
 
-"@tsed/cli-plugin-eslint@2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@tsed/cli-plugin-eslint/-/cli-plugin-eslint-2.6.0.tgz#ae53045f826c9ba74d768f04ccd10af4c973ae51"
-  integrity sha512-G7fXam+2+AaT4y4eRxqI6cdkddYOxxLH8iEWwE+LtqCpfq7B6qfdZtSnz5K3RQEXt4u1iX8JIsSEfg0hQj7/kA==
+"@tsed/cli-plugin-eslint@2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@tsed/cli-plugin-eslint/-/cli-plugin-eslint-2.7.1.tgz#cf134a98fa64c32eb2d6d713b7406350be2ef993"
+  integrity sha512-gWgX2GVtS4fPxMf9WUbsEfu7aMmZpIl8Un5Dk7DRH0fNbl3/HMz16p9RZ817Mbwc2jmHm4x9uV3pnYXiXm+J3g==
   dependencies:
     tslib "2.0.3"
 

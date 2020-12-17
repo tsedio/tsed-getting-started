@@ -537,10 +537,10 @@
     ajv-formats "1.5.1"
     tslib "2.0.1"
 
-"@tsed/cli-plugin-eslint@2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@tsed/cli-plugin-eslint/-/cli-plugin-eslint-2.6.0.tgz#ae53045f826c9ba74d768f04ccd10af4c973ae51"
-  integrity sha512-G7fXam+2+AaT4y4eRxqI6cdkddYOxxLH8iEWwE+LtqCpfq7B6qfdZtSnz5K3RQEXt4u1iX8JIsSEfg0hQj7/kA==
+"@tsed/cli-plugin-eslint@2.7.5":
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/@tsed/cli-plugin-eslint/-/cli-plugin-eslint-2.7.5.tgz#483b26bb197838aa9316be6033854a296fd87857"
+  integrity sha512-7gTbBc3KCS4XmSExFJAdX5bxJu8G4wMvqR3xW1SGgs6eGmCYHJvoxafRkIQz9FcmldeKe0lqu3VTSK54NXOF+Q==
   dependencies:
     tslib "2.0.3"
 

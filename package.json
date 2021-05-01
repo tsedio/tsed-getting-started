@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@tsed/cli-plugin-eslint": "2.6.0",
-    "@tsed/cli-plugin-jest": "2.6.0",
+    "@tsed/cli-plugin-jest": "3.0.3",
     "@types/multer": "1.4.4",
     "@types/compression": "^1.7.0",
     "@types/cookie-parser": "^1.4.2",

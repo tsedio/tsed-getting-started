@@ -1,17 +1,19 @@
 import {
-  Authenticated,
   BodyParams,
   Controller,
   Delete,
   Get,
-  MergeParams,
   PathParams,
   Post,
   Put,
-  Required,
-  Status,
   UseBefore
 } from "@tsed/common";
+import {
+  Required,
+  Status,
+} from "@tsed/schema";
+import {MergeParams} from "@tsed/platform-express";
+import {Authenticate} from "@tsed/passport";
 import {NotFound} from "@tsed/exceptions";
 import {CheckCalendarIdMiddleware} from "../../middlewares/CheckCalendarIdMiddleware";
 import {Event} from "../../interfaces/Event";
@@ -80,7 +82,7 @@ export class EventsCtrl {
   }
 
   @Delete("/:id")
-  @Authenticated()
+  @Authenticate()
   @Status(204)
   async remove(@Required() @PathParams("calendarId") calendarId: string,
                @PathParams("id") id: string): Promise<void> {

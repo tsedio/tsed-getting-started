@@ -1,4 +1,5 @@
-import {Middleware, PathParams, Required} from "@tsed/common";
+import {Required} from "@tsed/schema";
+import {Middleware, PathParams} from "@tsed/common";
 import {NotFound} from "@tsed/exceptions";
 import {CalendarsService} from "../services/calendars/CalendarsService";
 
